@@ -1,0 +1,53 @@
+
+services:
+  database:
+    image: postgres:15
+    container_name: Database
+    restart: always
+    environment:
+      POSTGRES_DB: ProjetoInga
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: >
+      postgres -c listen_addresses='*' -c password_encryption=md5
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
+    networks:
+      - cme_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: dev
+    container_name: Backend
+    restart: always
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "8000:80"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://+:80"
+      ConnectionStrings__DefaultConnection: "Host=database;Port=5432;Database=ProjetoInga;Username=postgres;Password=123456"
+    volumes:
+      - ./backend/ApiBackend:/app
+      - ~/.nuget/packages:/root/.nuget/packages
+    networks:
+      - cme_network
+
+
+volumes:
+  postgres_data: {}
+
+networks:
+  cme_network:
+    driver: bridge

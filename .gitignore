@@ -1,0 +1,59 @@
+# ========================
+# Visual Studio / Rider
+# ========================
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.idea/
+
+# ========================
+# Build artifacts
+# ========================
+bin/
+obj/
+
+# ========================
+# IDE/editor folders
+# ========================
+.vscode/
+
+# ========================
+# OS generated files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# Logs
+# ========================
+*.log
+
+# ========================
+# Environment / secrets
+# ========================
+.env
+secrets*.yaml
+
+# ========================
+# Node / frontend
+# ========================
+node_modules/
+dist/
+
+# ========================
+# Docker compose overrides
+# ========================
+docker-compose.override.yml
+
+# ========================
+# Coverage reports
+# ========================
+coverage/
+
+# ========================
+# Temporary files
+# ========================
+*.tmp
+*~

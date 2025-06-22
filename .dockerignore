@@ -1,0 +1,25 @@
+# Pastas de binário e build do .NET
+bin/
+obj/
+
+# Configurações de IDE e do usuário
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Migrations (são geradas localmente, mas não precisam ir pro container)
+Migrations/
+
+# Controle de versão
+.git/
+.gitignore
+
+# Arquivos de ambiente e secretos
+.env
+secrets.dev.yaml
+
+# Logs e caches de front-end (caso tenha algo no mesmo context)
+node_modules/
+dist/
+npm-debug.log
