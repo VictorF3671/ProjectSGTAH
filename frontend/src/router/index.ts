@@ -1,33 +1,51 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 
-// Layout do Dashboard (que vai conter as rotas internas com a barra lateral e app-bar)
-// import Dashboard from '@/pages/Dashboard.vue';
-
-// Páginas
-import Login from '@/pages/Auth/Login.vue';
+// páginas
+import Login         from '@/pages/Auth/Login.vue';
+import MenuTemplate  from '@/pages/MenuTemplate.vue';
+import NewProject    from '@/pages/Project/NewProject.vue';
+import Dashboard     from '@/pages/Dashboard/Dashboard.vue';
+import NewTask       from '@/pages/Task/NewTask.vue'
+import ProjectDetails from '@/pages/Project/ProjectDetails' 
 
 const routes: RouteRecordRaw[] = [
+  { path: '/',         redirect: '/login' },
+  { path: '/login',    name: 'Login', component: Login },
+
   {
-    path: '/',
-    redirect: '/login', 
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-  },
-  // {
-  //   path: '/dashboard',
-  //   component: Dashboard,
-  //   children: [
-  //     {
-  //       path: '',
-  //       redirect: '/dashboard', 
-  //     },
-      
-  //   ],
-  //   //meta: { requiresAuth: true }, 
-  // },
+    path: '/menu-template',
+    component: MenuTemplate,
+    //meta: { requiresAuth: true },
+    children: [
+     
+      { path: '',            redirect: '/menu-template/new-project' },
+
+      {
+        path: 'new-project',
+        name: 'NewProject',
+        component: NewProject,
+      },
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: Dashboard,
+      },
+       {
+        path: 'projects/:projectId',
+        name: 'ProjectDetails',
+        component: ProjectDetails,
+        props: true
+      },
+
+      // criar nova task dentro de um project
+      {
+        path: 'projects/:projectId/tasks/new',
+        name: 'NewTask',
+        component: NewTask,
+        props: true
+      }
+    ]
+  }
 ];
 
 const router = createRouter({
@@ -35,14 +53,12 @@ const router = createRouter({
   routes,
 });
 
-// Guard global de autenticação
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!localStorage.getItem('token');
   if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login');
-  } else {
-    next();
+    return next('/login');
   }
+  next();
 });
 
 export default router;
