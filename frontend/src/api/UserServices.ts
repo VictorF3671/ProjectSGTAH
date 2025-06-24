@@ -11,7 +11,10 @@ export interface ILogin {
     username: string,
     password: string
 }
-
+export interface IUserCreate {
+    username: string,
+    password: string
+}
 
 export const authUser = async (login: ILogin) => {
     const response = await axios.post('/User/Login', login)
@@ -28,7 +31,7 @@ export const getUserById = async (id: number) => {
     return response.data;
 }
 
-export const createUser = async (user: IUser) =>{
+export const createUser = async (user: IUserCreate) =>{
     const response = await axios.post('/User', user)
     return response.data;
 }

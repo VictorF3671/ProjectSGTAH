@@ -118,8 +118,9 @@ import {
 
 const route         = useRoute()
 
-const projectId = Number(route.query.projectId as string)
 
+const props = defineProps<{ projectId: string }>()
+const projectId = Number(props.projectId)
 
 
 const project       = ref<IProject|null>(null)
@@ -149,7 +150,7 @@ async function loadProject() {
 }
 
 async function loadTasks() {
-  tasks.value = await getAllTask(projectId)
+  tasks.value = await getAllTask(projectId)    
   await Promise.all(tasks.value.map(t => loadTimeTrackers(t.id)))
 }
 

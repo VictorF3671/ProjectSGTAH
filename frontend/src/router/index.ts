@@ -7,6 +7,7 @@ import NewProject    from '@/pages/Project/NewProject.vue';
 import Dashboard     from '@/pages/Dashboard/Dashboard.vue';
 import NewTask       from '@/pages/Task/NewTask.vue'
 import ProjectDetails from '@/pages/Project/ProjectDetails' 
+import NewUser       from '@/pages/User/NewUser.vue'
 
 const routes: RouteRecordRaw[] = [
   { path: '/',         redirect: '/login' },
@@ -29,6 +30,11 @@ const routes: RouteRecordRaw[] = [
         path: 'dashboard',
         name: 'Dashboard',
         component: Dashboard,
+      },
+      {
+        path: 'new-user',
+        name: 'NewUser',
+        component: NewUser,
       },
        {
         path: 'projects/:projectId',

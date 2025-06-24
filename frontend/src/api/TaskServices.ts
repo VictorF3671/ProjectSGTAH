@@ -17,9 +17,14 @@ export interface ITask {
     timeEntries: number
 }
 
-export const getAllTask = async (projectId: number) => {
-    const response = await axios.get(`/Task/${projectId}`)
-    return response.data
+//ajuste para devolver um array, antes devolvia um só objeto
+export const getAllTask = async (
+  projectId: number
+): Promise<ITask[]> => {
+  const response = await axios.get<ITask[]>("/Task", {
+    params: { projectId }
+  })
+  return response.data
 }
 
 export const createTask = async (project: ITaskCreate) => {
