@@ -7,12 +7,14 @@
           <v-text-field
             v-model="form.name"
             label="Nome da Task"
+            variant="outlined"
             :rules="[v => !!v || 'O nome é obrigatório']"
             required
           />
           <v-text-field
             v-model="form.description"
             label="Descrição (opcional)"
+            variant="outlined"
             textarea
             rows="3"
           />
@@ -68,10 +70,7 @@ async function submit() {
   try {
     const created: ITask = await createTask(dto)
     // redireciona para o details do projeto, ou para a lista de tasks
-    router.push({
-   path: '/projects',
-  query: { projectId: projectId.toString() }  
-})
+   router.push(`/menu-template/projects/${projectId}`)
   } catch (error) {
     console.error('Erro ao criar task:', error)
     // aqui você pode exibir um snackbar de erro…

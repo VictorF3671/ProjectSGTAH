@@ -16,17 +16,18 @@
 
       <v-list density="compact" nav>
         <v-list-item
-          prepend-icon="mdi-archive-edit-outline"
-          title="Novo Projeto"
-          to="/menu-template/new-project"
-          link
-        />
-        <v-list-item
           prepend-icon="mdi-view-dashboard-outline"
           title="Dashboard"
           to="/menu-template/dashboard"
           link
         />
+        <v-list-item
+          prepend-icon="mdi-archive-edit-outline"
+          title="Novo Projeto"
+          to="/menu-template/new-project"
+          link
+        />
+        
         <v-list-item
           prepend-icon="mdi-account-outline"
           title="Novo Usuario"
