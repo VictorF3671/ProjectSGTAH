@@ -1,5 +1,6 @@
 using ApiBackend.Data;
 using ApiBackend.Interfaces;
+using ApiBackend.Models;
 using ApiBackend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -62,9 +63,37 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var ctx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    ctx.Database.Migrate();
-}
 
+
+    ctx.Database.Migrate();
+
+
+    if (!ctx.User.Any())
+    {
+        // cria usuário “admin”
+        var admin = new User
+        {
+            Username = "admin",
+            Password = BCrypt.Net.BCrypt.HashPassword("senha123"),
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+        ctx.User.Add(admin);
+        ctx.SaveChanges();
+
+        // cria colaborador vinculado ao “admin”
+        var collab = new Collaborator
+        {
+            UserId = admin.Id,
+            Name = "Administrador",
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+        ctx.Collaborator.Add(collab);
+        ctx.SaveChanges();
+
+    }
+}
 app.UseCors();
 
 // Configure the HTTP request pipeline.
