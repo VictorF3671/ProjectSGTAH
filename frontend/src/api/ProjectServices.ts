@@ -32,3 +32,19 @@ export const deleteProject = async (id : number) => {
     const response = await axios.delete(`/Project/${id}`)
     return response.data
 }
+
+
+export const updateProject = async (
+  id: number,
+  dto: IProjectCreate
+): Promise<void> => {
+  await axios.put(
+    `/Project/${id}`,     
+    dto,               
+    {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  )
+}

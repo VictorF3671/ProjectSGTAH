@@ -18,7 +18,9 @@
                         <v-btn :to="{ name: 'ProjectDetails', params: { projectId: project.id } }">
                             Ver detalhes
                         </v-btn>
-
+                        <v-btn icon color="primary" @click="editProject(project.id)">
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
                         <v-btn icon color="red" @click="confirmDelete(project.id)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
@@ -66,7 +68,7 @@ onMounted(() => {
 })
 
 const goToNewProject = () => {
-    router.push('/menu-template/new-project')
+    router.push('/menu-template/projects/new')
 }
 
 
@@ -77,6 +79,10 @@ function confirmDelete(id: number) {
     confirmText.value = 'Sim, excluir';
     confirmVisible.value = true;
 
+}
+
+function editProject(projectId: number) {
+    router.push(`/menu-template/projects/new/${projectId}`)
 }
 
 const callDeleteProduct = async () => {

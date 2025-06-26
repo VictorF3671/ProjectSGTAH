@@ -21,6 +21,11 @@ export interface ITimeTracker {
   durationHours: number 
 }
 
+export interface ITimeTrackerUpdate {
+    startDate?: string,
+  endDate: string
+}
+
 export const getAllTimeTrackers = async (
   taskId?: number,
   collaboratorId?: number
@@ -36,6 +41,8 @@ export const getTimeTrackerById = async (id: number): Promise<ITimeTracker> => {
   return response.data
 }
 
+
+
 export const createTimeTracker = async (
   entry: ITimeTrackerCreate
 ): Promise<ITimeTracker> => {
@@ -45,6 +52,14 @@ export const createTimeTracker = async (
 
 export const deleteTimeTracker = async (id: number): Promise<void> => {
   await axios.delete(`/TimeTracker/${id}`)
+}
+
+export const updateTimeTracker = async (
+  id: number,
+  dto: ITimeTrackerUpdate
+): Promise<ITimeTracker> => {
+  const response = await axios.put<ITimeTracker>(`/TimeTracker/${id}`, dto)
+  return response.data
 }
 
 export const getTodayTotal = async (

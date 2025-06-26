@@ -37,9 +37,19 @@ export const getTaskById = async (id : number) => {
     return response.data
 }
 
-export const updateTask = async (id : number) => {
-    const response = await axios.put(`/Task/${id}`)
-    return response.data
+export const updateTask = async (
+  id: number,
+  dto: ITaskCreate
+): Promise<void> => {
+  await axios.put(
+    `/Task/${id}`,     
+    dto,               
+    {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  )
 }
 
 export const deleteTask = async (id : number) => {

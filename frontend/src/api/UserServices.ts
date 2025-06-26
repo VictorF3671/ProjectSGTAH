@@ -22,7 +22,7 @@ export const authUser = async (login: ILogin) => {
 }
 
 export const getAllUsers = async () => {
-    const response = await axios.get('/Users')
+    const response = await axios.get('/User')
     return response.data;
 }
 

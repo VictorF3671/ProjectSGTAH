@@ -207,5 +207,63 @@ namespace ApiBackend.Services
             var span = TimeSpan.FromMinutes(totalMinutes);
             return $"{(int)span.TotalHours:D2}:{span.Minutes:D2}";
         }
+
+        public async Task<TimeTrackerDto> UpdateAsync(int id, UpdateTimeTrackerDto dto)
+        {
+            var tt = await _appDbContext.TimeTracker
+                .FirstOrDefaultAsync(x => x.Id == id && x.DeletedAt == null);
+            if (tt == null)
+                throw new KeyNotFoundException("TimeTracker não encontrado.");
+
+            if (dto.EndDate < dto.StartDate)
+                throw new InvalidOperationException("EndDate deve ser maior ou igual a StartDate.");
+
+           
+            var tzId = string.IsNullOrWhiteSpace(tt.TimeZoneId)
+                ? TimeZoneInfo.Local.Id
+                : tt.TimeZoneId!;
+            var tz = TimeZoneInfo.FindSystemTimeZoneById(tzId);
+
+            var localDay = TimeZoneInfo.ConvertTimeFromUtc(dto.StartDate, tz).Date;
+            var dayStartUtc = TimeZoneInfo.ConvertTimeToUtc(localDay, tz);
+            var dayEndUtc = dayStartUtc.AddDays(1);
+
+            var overlap = await _appDbContext.TimeTracker
+                .Where(x =>
+                    x.CollaboratorId == tt.CollaboratorId &&
+                    x.Id != id &&
+                    x.DeletedAt == null &&
+
+                    x.EndDate > x.StartDate &&
+
+                    x.StartDate >= dayStartUtc &&
+                    x.StartDate < dayEndUtc
+                )
+                .AnyAsync(x =>
+                    dto.StartDate < x.EndDate &&
+                    dto.EndDate > x.StartDate
+                );
+
+            if (overlap)
+                throw new InvalidOperationException("O intervalo colide com outro registro existente.");
+
+            tt.StartDate = dto.StartDate;
+            tt.EndDate = dto.EndDate;
+
+            await _appDbContext.SaveChangesAsync();
+
+            return new TimeTrackerDto
+            {
+                Id = tt.Id,
+                TaskId = tt.TaskId,
+                CollaboratorId = tt.CollaboratorId,
+                StartDate = tt.StartDate,
+                EndDate = tt.EndDate,
+                TimeZoneId = tt.TimeZoneId,
+                CreatedAt = tt.CreatedAt,
+                UpdatedAt = tt.UpdatedAt,
+                DurationHours = (tt.EndDate - tt.StartDate).TotalHours
+            };
+        }
     }
 }

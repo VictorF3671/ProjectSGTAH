@@ -1,55 +1,50 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 
 // páginas
-import Login         from '@/pages/Auth/Login.vue';
-import MenuTemplate  from '@/pages/MenuTemplate.vue';
-import NewProject    from '@/pages/Project/NewProject.vue';
-import Dashboard     from '@/pages/Dashboard/Dashboard.vue';
-import NewTask       from '@/pages/Task/NewTask.vue'
-import ProjectDetails from '@/pages/Project/ProjectDetails' 
-import NewUser       from '@/pages/User/NewUser.vue'
+import Login from '@/pages/Auth/Login.vue';
+import MenuTemplate from '@/pages/MenuTemplate.vue';
+import NewProject from '@/pages/Project/NewProject.vue';
+import Dashboard from '@/pages/Dashboard/Dashboard.vue';
+import NewTask from '@/pages/Task/NewTask.vue'
+import ProjectDetails from '@/pages/Project/ProjectDetails'
+import NewUser from '@/pages/User/NewUser.vue'
+import ListUser from '@/pages/User/ListUser.vue'
 
 const routes: RouteRecordRaw[] = [
-  { path: '/',         redirect: '/login' },
-  { path: '/login',    name: 'Login', component: Login },
+  { path: '/', redirect: '/login' },
+  { path: '/login', name: 'Login', component: Login },
 
   {
     path: '/menu-template',
     component: MenuTemplate,
     //meta: { requiresAuth: true },
     children: [
-     
-      { path: '',            redirect: '/menu-template/new-project' },
+
+      { path: '', redirect: 'menu-template/dashboard' },
+
+      { path: 'dashboard', name: 'Dashboard', component: Dashboard },
 
       {
-        path: 'new-project',
+        path: 'projects/new/:projectId?',
         name: 'NewProject',
         component: NewProject,
-      },
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: Dashboard,
-      },
-      {
-        path: 'new-user',
-        name: 'NewUser',
-        component: NewUser,
-      },
-       {
-        path: 'projects/:projectId',
-        name: 'ProjectDetails',
-        component: ProjectDetails,
         props: true
       },
 
-      // criar nova task dentro de um project
+      { path: 'projects/:projectId', name: 'ProjectDetails', component: ProjectDetails, props: true },
+
+      // tasks (create & edit)
       {
-        path: 'projects/:projectId/tasks/new',
+        path: 'projects/:projectId/tasks/new/:taskId?',
         name: 'NewTask',
         component: NewTask,
         props: true
-      }
+      },
+
+      // usuários
+      { path: 'new-user', name: 'NewUser', component: NewUser },
+
+      { path: 'list-user', name: 'ListUser', component: ListUser },
     ]
   }
 ];

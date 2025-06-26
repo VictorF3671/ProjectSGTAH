@@ -67,7 +67,7 @@ const user = ref<IUserCreate>({
     password: "",
 });
 function navegarLista(){
-    router.push('menu-template/dashboard')
+    router.push('dashboard')
 }
 async function verifyCreate() {
      if(!user.value.username || !user.value.password ){

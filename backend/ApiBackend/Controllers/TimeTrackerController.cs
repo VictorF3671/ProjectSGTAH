@@ -30,6 +30,13 @@ namespace ApiBackend.Controllers
             return CreatedAtAction(nameof(GetById), new { id = tt.Id }, tt);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateTimeTrackerDto dto)
+        {
+            var updated = await _services.UpdateAsync(id, dto);
+            return Ok(updated);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

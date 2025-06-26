@@ -28,12 +28,28 @@
           link
         />
         
+         <v-list-group
+        v-model="usersOpen"
+      >
+        <template #activator="{ props }">
+          <v-list-item v-bind="props"
+          title="Usuarios"
+          prepend-icon="mdi-account-group-outline"
+          >
+          </v-list-item>
+        </template>
+
+        <!-- Itens do grupo -->
         <v-list-item
-          prepend-icon="mdi-account-outline"
-          title="Novo Usuario"
-          to="/menu-template/new-user"
+          v-for="(item, i) in userItems"
+          :key="i"
+          :to="item.to"
           link
-        />
+          :title="item.title"
+          :prepend-icon="item.icon"
+        >
+        </v-list-item>
+      </v-list-group>
       </v-list>
     </v-navigation-drawer>
 
@@ -52,6 +68,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
+
+const usersOpen = ref(false)
+const userItems = [
+  { title: 'Lista Usuário', icon: 'mdi-account-multiple-outline', to: '/menu-template/list-user' },
+  { title: 'Novo Usuário',  icon: 'mdi-account-plus-outline',     to: '/menu-template/new-user' }
+]
 
 const drawer = ref(true);
 </script>
