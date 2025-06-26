@@ -19,7 +19,7 @@ services:
       interval: 5s
       retries: 5
     networks:
-      - cme_network
+      - inga_network
 
   backend:
     build:
@@ -42,12 +42,24 @@ services:
       - ./backend/ApiBackend:/app
       - ~/.nuget/packages:/root/.nuget/packages
     networks:
-      - cme_network
+      - inga_network
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: Frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    networks:
+      - inga_network
 
 volumes:
   postgres_data: {}
 
 networks:
-  cme_network:
+  inga_network:
     driver: bridge

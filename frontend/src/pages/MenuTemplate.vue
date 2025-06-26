@@ -24,7 +24,7 @@
         <v-list-item
           prepend-icon="mdi-archive-edit-outline"
           title="Novo Projeto"
-          to="/menu-template/new-project"
+          to="/menu-template/projects/new"
           link
         />
         

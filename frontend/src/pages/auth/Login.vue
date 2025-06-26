@@ -1,7 +1,7 @@
 <template>
   <v-container class="d-flex justify-center align-center" style="height: 100vh;">
     <v-card class="pa-4" style="width: 400px; height: 400px; justify-content: center;" elevation="9">
-      <v-card-title class="text-center" style="font-weight: bold; margin-bottom: 50px;">Projeto Market</v-card-title>
+      <v-card-title class="text-center" style=" margin-bottom: 50px;">Projeto Inga</v-card-title>
       
       <v-card-text>
         <v-form >
@@ -59,11 +59,12 @@ async function VerifyLogin() {
       const response = await authUser(login.value)
       if (response.token) {
       
-       const token = response.data.token 
+       const token = response.token 
        localStorage.setItem('token', token);
-       router.push('/dashboard')
+       router.push('menu-template')
       }
     }catch(error){
+      console.log(error)
       snacktext.value = "Erro ao fazer Login. Tente Novamente";
       snackbar.value = true; 
     }

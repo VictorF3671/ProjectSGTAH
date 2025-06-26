@@ -24,10 +24,24 @@
         </v-row>
 
         <!-- Filtro de colaborador -->
-        <v-row class="mb-4">
+        <v-row class="mb-4" align="center">
             <v-col cols="12" md="4">
-                <v-select v-model="selectedCollaborator" :items="collaborators" item-title="username" item-value="id"
-                    label="Filtrar por colaborador" clearable />
+                <v-select v-model="selectedCollaborator" variant="outlined" :items="collaborators" item-title="username"
+                    item-value="id" label="Filtrar por colaborador" clearable />
+            </v-col>
+
+            <v-spacer />
+
+            <v-col>
+                <v-btn color="primary" class="me-2" @click="goToNewTask">
+                    <v-icon left>mdi-playlist-plus</v-icon>
+                    Nova Task
+                </v-btn>
+
+                <v-btn color="secondary" @click="goToDashboard">
+                    <v-icon left>mdi-arrow-left</v-icon>
+                    Dashboard
+                </v-btn>
             </v-col>
         </v-row>
 
@@ -38,9 +52,8 @@
                     <v-expansion-panel v-for="task in filteredTasks" :key="task.id">
                         <v-expansion-panel-title class="d-flex align-center justify-space-between">
                             {{ task.name }}
-                            <div class="d-flex gap-2">
-                                <!-- Start/Stop -->
-                                <v-btn icon density="compact"
+                            <div class="d-flex gap-4 justify-end" style="width: 100%">
+                                <v-btn icon density="compact" class="me-4"
                                     :color="activeTrackerByTask[task.id] ? 'error' : 'success'"
                                     @click.stop="activeTrackerByTask[task.id] ? stop(task) : openDialog(task)">
                                     <v-icon size="20">
@@ -48,11 +61,10 @@
                                     </v-icon>
                                 </v-btn>
 
-                                <v-btn icon density="compact" color="primary" @click.stop="editTask(task.id)">
+                                <v-btn icon class="me-4" density="compact" color="primary" @click.stop="editTask(task.id)">
                                     <v-icon size="20">mdi-pencil</v-icon>
                                 </v-btn>
 
-                                
                                 <v-btn icon density="compact" color="error" @click.stop="onDeleteTask(task.id)">
                                     <v-icon size="20">mdi-delete</v-icon>
                                 </v-btn>
@@ -180,8 +192,18 @@ async function loadTasks() {
     await refreshTotals()
 }
 
+
+//funções de navegação 
+function goToNewTask() {
+    router.push(`/menu-template/projects/${projectId}/tasks/new`)
+}
+
+function goToDashboard() {
+    router.push('/menu-template/dashboard')
+}
+
 function editTask(taskId: number) {
-  router.push(`/menu-template/projects/${projectId}/tasks/new/${taskId}`)
+    router.push(`/menu-template/projects/${projectId}/tasks/new/${taskId}`)
 }
 
 async function loadTimeTrackers(taskId: number) {

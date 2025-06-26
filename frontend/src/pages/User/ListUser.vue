@@ -8,12 +8,7 @@
 
     <v-row>
       <v-col cols="12">
-        <v-data-table
-          :headers="headers"
-          :items="users"
-          :loading="loading"
-          class="elevation-1"
-        >
+        <v-data-table :headers="headers" :items="users" :loading="loading" class="elevation-1">
           <template #item.createdAt="{ item }">
             {{ formatDate(item.createdAt) }}
           </template>
@@ -24,22 +19,12 @@
 
           <template #item.action="{ item }">
 
-            <v-btn
-              v-if="!isCollaborator(item.id)"
-              icon
-              color="primary"
-              density="compact"
-              @click="makeCollaborator(item.id)"
-            >
+            <v-btn v-if="!isCollaborator(item.id)" icon color="primary" density="compact"
+              @click="makeCollaborator(item.id)">
               <v-icon size="20">mdi-account-plus</v-icon>
             </v-btn>
 
-            <v-icon
-              v-else
-              size="20"
-              color="green"
-              title="Já é colaborador"
-            >
+            <v-icon v-else size="20" color="green" title="Já é colaborador">
               mdi-check-circle
             </v-icon>
           </template>
@@ -58,19 +43,45 @@ import {
   type ICollaborator
 } from '@/api/CollaboratorServices'
 
-const users        = ref<IUser[]>([])
-const collaborators= ref<ICollaborator[]>([])
-const loading      = ref(false)
+const users = ref<IUser[]>([])
+const collaborators = ref<ICollaborator[]>([])
+const loading = ref(false)
 
 
-const headers = [
-  { title: 'ID',         key: 'id',        align: 'start' },
-  { title: 'Usuário',    key: 'username'             },
-  { title: 'Criado em',  key: 'createdAt'            },
-  { title: 'Atualizado', key: 'updatedAt'            },
-  { title: 'Ação',       key: 'action',    sortable: false }
-]
 
+import type { DataTableHeader } from 'vuetify'
+const headers = ref<DataTableHeader<IUser>[]>([
+  {
+    key:      'id',
+    title:    'ID',
+    align:    'start',   // só aceita 'start' | 'center' | 'end'
+    sortable: true,
+  },
+  {
+    key:      'username',
+    title:    'Usuário',
+    align:    'start',
+    sortable: true,
+  },
+  {
+    key:      'createdAt',
+    title:    'Criado em',
+    align:    'start',
+    sortable: true,
+  },
+  {
+    key:      'updatedAt',
+    title:    'Atualizado',
+    align:    'start',
+    sortable: true,
+  },
+  {
+    key:      'action',     // coluna de ações
+    title:    'Colaborador',
+    align:    'start',
+    sortable: false,
+  },
+])
 const collaboratorUserIds = computed(() =>
   new Set(collaborators.value.map(c => c.userId))
 )
@@ -83,17 +94,17 @@ function isCollaborator(userId: number): boolean {
 function formatDate(value: string | Date): string {
   const d = typeof value === 'string' ? new Date(value) : value
   return d.toLocaleString('pt-BR', {
-    day:   '2-digit',
+    day: '2-digit',
     month: '2-digit',
-    year:  'numeric',
-    hour:   '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
     minute: '2-digit'
   })
 }
 
 async function loadUsers() {
   loading.value = true
-  users.value   = await getAllUsers()
+  users.value = await getAllUsers()
   loading.value = false
 }
 
@@ -112,6 +123,6 @@ async function makeCollaborator(userId: number) {
 }
 
 onMounted(async () => {
-  await Promise.all([ loadUsers(), loadCollaborators() ])
+  await Promise.all([loadUsers(), loadCollaborators()])
 })
 </script>

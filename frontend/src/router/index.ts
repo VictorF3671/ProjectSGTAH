@@ -6,7 +6,7 @@ import MenuTemplate from '@/pages/MenuTemplate.vue';
 import NewProject from '@/pages/Project/NewProject.vue';
 import Dashboard from '@/pages/Dashboard/Dashboard.vue';
 import NewTask from '@/pages/Task/NewTask.vue'
-import ProjectDetails from '@/pages/Project/ProjectDetails'
+import ProjectDetails from '@/pages/Project/ProjectDetails.vue'
 import NewUser from '@/pages/User/NewUser.vue'
 import ListUser from '@/pages/User/ListUser.vue'
 
