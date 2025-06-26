@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 
 // páginas
-import Login from '@/pages/Auth/Login.vue';
+import Login from '@/pages/Authenticate/Login.vue';
 import MenuTemplate from '@/pages/MenuTemplate.vue';
 import NewProject from '@/pages/Project/NewProject.vue';
 import Dashboard from '@/pages/Dashboard/Dashboard.vue';

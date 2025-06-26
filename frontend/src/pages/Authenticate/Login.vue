@@ -37,7 +37,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from '@/plugins/axios'; 
 import type { ILogin } from '@/api/UserServices';
 import { authUser } from '@/api/UserServices';
 const login = ref<ILogin>({
