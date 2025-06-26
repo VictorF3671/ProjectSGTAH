@@ -65,7 +65,7 @@ Sistema para controle de tarefas com apontamento de horas.
 1. Clone o repositório:
    ```bash
    git clone https://github.com/VictorF3671/ProjectSGTAH.git
-   cd .\projetoSGTAH\
+   cd .\ProjectSGTAH\
 
 2. Suba os containers:
    ```bash
