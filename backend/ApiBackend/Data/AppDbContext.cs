@@ -31,7 +31,7 @@ namespace ApiBackend.Data
                 .Where(e =>
                     e.Entity is User
                     || e.Entity is Project
-                    || e.Entity is Tasks        // plural, conforme seu model
+                    || e.Entity is Tasks       
                     || e.Entity is TimeTracker
                     || e.Entity is Collaborator
                 && (e.State == EntityState.Added || e.State == EntityState.Modified));
@@ -51,21 +51,21 @@ namespace ApiBackend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // 1) Task → Project: cascade delete (opcional, convenção já faz para FK non-nullable)
+            
             modelBuilder.Entity<Models.Tasks>()
                 .HasOne(t => t.Project)
                 .WithMany(p => p.Tasks)
                 .HasForeignKey(t => t.ProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // 2) TimeTracker → Task: cascade delete
+            
             modelBuilder.Entity<TimeTracker>()
                 .HasOne(tt => tt.Task)
                 .WithMany(t => t.TimeTrackers)
                 .HasForeignKey(tt => tt.TaskId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // 3) TimeTracker → Collaborator: cascade delete
+            
             modelBuilder.Entity<TimeTracker>()
                 .HasOne(tt => tt.Collaborator)
                 .WithMany()

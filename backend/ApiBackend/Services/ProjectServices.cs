@@ -77,7 +77,7 @@ namespace ApiBackend.Services
         await _appDbContext.SaveChangesAsync();
     }
 
-    // **e este** DeleteAsync também:
+    
     public async Task DeleteAsync(int id)
     {
         var proj = await _appDbContext.Project.FindAsync(id);

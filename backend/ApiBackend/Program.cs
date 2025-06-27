@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var key = Encoding.UTF8.GetBytes(ApiBackend.Key.Secret);
 
-// Configurar autenticação JWT
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -70,7 +70,7 @@ using (var scope = app.Services.CreateScope())
 
     if (!ctx.User.Any())
     {
-        // cria usuário “admin”
+       
         var admin = new User
         {
             Username = "admin",
@@ -81,7 +81,7 @@ using (var scope = app.Services.CreateScope())
         ctx.User.Add(admin);
         ctx.SaveChanges();
 
-        // cria colaborador vinculado ao “admin”
+       
         var collab = new Collaborator
         {
             UserId = admin.Id,
@@ -96,7 +96,7 @@ using (var scope = app.Services.CreateScope())
 }
 app.UseCors();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

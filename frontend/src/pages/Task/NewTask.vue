@@ -77,10 +77,8 @@ onMounted(async () => {
 })
 
 function cancel() {
-  // volta para detalhes do projeto
+  
   router.push(`/menu-template/projects/${projectId}`)
-  // ou se sua rota de detalhes for /menu-template/projects/:projectId:
-  // router.push(`/menu-template/projects/${projectId}`)
 }
 
 async function submit() {
@@ -101,7 +99,7 @@ async function submit() {
     router.push(`/menu-template/projects/${projectId}`)
   } catch (error: any) {
     console.error('Erro ao salvar task:', error)
-    // exiba snackbar de erro aqui
+    
   }
 }
 </script>

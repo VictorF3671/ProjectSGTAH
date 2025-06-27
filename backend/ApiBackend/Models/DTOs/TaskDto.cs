@@ -8,6 +8,6 @@
         public int ProjectId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int TimeEntries { get; set; }  // opcional: qtd de apontamentos
+        public int TimeEntries { get; set; }  
     }
 }

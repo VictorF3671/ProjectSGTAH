@@ -12,7 +12,7 @@ namespace ApiBackend.Models
         [Required, MaxLength(250)]
         public string Name { get; set; } = null!;
 
-        // FK para o User (único)
+        
         [Required]
         public int UserId { get; set; }
         public User User { get; set; } = null!;

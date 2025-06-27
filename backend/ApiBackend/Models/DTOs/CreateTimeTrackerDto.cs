@@ -11,10 +11,10 @@ namespace ApiBackend.Models.DTOs
         public int CollaboratorId { get; set; }
 
         [Required]
-        public DateTime StartDate { get; set; }  // em UTC
+        public DateTime StartDate { get; set; }  
 
         [Required]
-        public DateTime EndDate { get; set; }    // em UTC
+        public DateTime EndDate { get; set; }  
 
         [Required, MaxLength(200)]
         public string TimeZoneId { get; set; } = null!;

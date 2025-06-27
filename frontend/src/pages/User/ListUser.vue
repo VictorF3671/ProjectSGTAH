@@ -54,7 +54,7 @@ const headers = ref<DataTableHeader<IUser>[]>([
   {
     key:      'id',
     title:    'ID',
-    align:    'start',   // só aceita 'start' | 'center' | 'end'
+    align:    'start',   
     sortable: true,
   },
   {
@@ -76,7 +76,7 @@ const headers = ref<DataTableHeader<IUser>[]>([
     sortable: true,
   },
   {
-    key:      'action',     // coluna de ações
+    key:      'action',     
     title:    'Colaborador',
     align:    'start',
     sortable: false,

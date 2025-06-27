@@ -56,7 +56,7 @@ namespace ApiBackend.Services
 
         public async Task<TaskDto> CreateAsync(CreateTaskDto dto)
         {
-            // valida projeto
+            
             var proj = await _appDbContext.Project
                 .FirstOrDefaultAsync(p => p.Id == dto.ProjectId && p.DeletedAt == null);
             if (proj == null)

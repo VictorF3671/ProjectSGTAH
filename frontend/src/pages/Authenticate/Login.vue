@@ -5,7 +5,7 @@
       
       <v-card-text>
         <v-form >
-          <v-text-field variant="outlined" label="Email" v-model="login.username" type="email" required></v-text-field>
+          <v-text-field variant="outlined" label="Username" v-model="login.username" type="text" required></v-text-field>
 
           <v-text-field variant="outlined" label="Senha" v-model="login.password" type="password" required></v-text-field>
 

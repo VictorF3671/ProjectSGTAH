@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ApiBackend.Models
 {
 
-    //Username sendo unico
+   
     [Index(nameof(Username), IsUnique = true)]
     public class User
     {

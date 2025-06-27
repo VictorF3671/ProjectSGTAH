@@ -63,11 +63,11 @@ namespace ApiBackend.Services
 
         public async Task<TimeTrackerDto> CreateAsync(CreateTimeTrackerDto dto)
         {
-            // Valida ordem de datas
+            
             if (dto.EndDate < dto.StartDate)
                 throw new InvalidOperationException("EndDate deve ser maior ou igual a StartDate.");
 
-            // Checa Task e Collaborator
+           
             var task = await _appDbContext.Tasks
                 .FirstOrDefaultAsync(t => t.Id == dto.TaskId && t.DeletedAt == null);
             if (task == null)
@@ -87,7 +87,7 @@ namespace ApiBackend.Services
             if (overlap)
                 throw new InvalidOperationException("O intervalo colide com outro registro existente.");
 
-            // Limite de 24h no dia
+            
             var tz = TimeZoneInfo.FindSystemTimeZoneById(dto.TimeZoneId);
             var localDate = TimeZoneInfo.ConvertTimeFromUtc(dto.StartDate, tz).Date;
             var dayStartUtc = TimeZoneInfo.ConvertTimeToUtc(localDate, tz);
@@ -108,7 +108,7 @@ namespace ApiBackend.Services
             if (minutesToday + newMinutes > 24 * 60)
                 throw new InvalidOperationException("Total de horas no dia ultrapassa 24 horas.");
 
-            // Cria
+           
             var tt = new TimeTracker
             {
                 TaskId = dto.TaskId,
@@ -150,7 +150,7 @@ namespace ApiBackend.Services
         {
             var now = DateTime.UtcNow;
             var tz = TimeZoneInfo.FindSystemTimeZoneById(
-                          // busca qualquer entry para extrair o fuso, ou use Local
+                          
                           _appDbContext.TimeTracker
                               .Where(x => x.CollaboratorId == collaboratorId)
                               .Select(x => x.TimeZoneId)

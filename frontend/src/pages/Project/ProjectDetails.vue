@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="pa-4">
-        <!-- Cabeçalho e totais -->
+     
         <v-row class="align-center mb-4">
             <v-col cols="12" md="6">
                 <h1 class="text-h4">{{ project?.name }}</h1>
@@ -23,7 +23,6 @@
             </v-col>
         </v-row>
 
-        <!-- Filtro de colaborador -->
         <v-row class="mb-4" align="center">
             <v-col cols="12" md="4">
                 <v-select v-model="selectedCollaborator" variant="outlined" :items="collaborators" item-title="username"
@@ -45,7 +44,7 @@
             </v-col>
         </v-row>
 
-        <!-- Lista de tasks com botões -->
+    
         <v-row>
             <v-col cols="12" md="8" offset-md="2">
                 <v-expansion-panels>
@@ -97,7 +96,7 @@
             </v-col>
         </v-row>
 
-        <!-- Diálogo para iniciar tracker -->
+     
         <v-dialog v-model="dialog" max-width="400px">
             <v-card>
                 <v-card-title>Escolher Colaborador</v-card-title>
@@ -118,7 +117,6 @@
             </v-card>
         </v-dialog>
 
-        <!-- Snackbar -->
         <v-snackbar v-model="snackbar.show" :color="snackbar.color" top timeout="5000">
             {{ snackbar.message }}
             <template #actions>
@@ -193,7 +191,6 @@ async function loadTasks() {
 }
 
 
-//funções de navegação 
 function goToNewTask() {
     router.push(`/menu-template/projects/${projectId}/tasks/new`)
 }

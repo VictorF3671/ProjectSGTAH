@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <!-- Drawer fixado ao lado -->
+    
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -39,7 +39,7 @@
           </v-list-item>
         </template>
 
-        <!-- Itens do grupo -->
+    
         <v-list-item
           v-for="(item, i) in userItems"
           :key="i"
@@ -53,13 +53,13 @@
       </v-list>
     </v-navigation-drawer>
 
-    <!-- App bar no topo -->
+
     <v-app-bar app flat>
       <v-app-bar-title>Projeto Inga</v-app-bar-title>
       <v-spacer />
     </v-app-bar>
 
-    <!-- Área de conteúdo principal -->
+  
     <v-main>
       <router-view />
     </v-main>

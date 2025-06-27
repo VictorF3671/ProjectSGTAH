@@ -64,23 +64,23 @@ interface RouteParams {
 const router = useRouter()
 const route  = useRoute()
 
-// força params a ter projectId
+
 const params    = route.params as unknown as RouteParams
 const projectId = params.projectId ? Number(params.projectId) : null
 const isEdit    = projectId !== null
 
-// estado do form
+
 const formRef = ref()
 const valid   = ref(false)
 const form = ref<IProjectCreate>({
   name: ''
 })
 
-// snackbar
+
 const snackbar = ref(false)
 const snackText = ref('')
 
-// se for edição, carrega dados
+
 onMounted(async () => {
   if (isEdit && projectId !== null) {
     try {
@@ -94,7 +94,7 @@ onMounted(async () => {
 })
 
 function cancel() {
-  // volta para o dashboard ou detalhes do projeto
+
   if (isEdit && projectId !== null) {
     router.push(`/menu-template/projects/${projectId}`)
   } else {
@@ -115,7 +115,7 @@ async function submit() {
     } else {
       await createProject(form.value)
     }
-    // após criar/editar, vai para a lista de projetos (dashboard)
+    
     router.push('/menu-template/dashboard')
   } catch (error: any) {
     snackText.value = error.response?.data || 'Erro ao salvar projeto'

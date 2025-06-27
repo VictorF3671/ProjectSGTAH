@@ -15,7 +15,6 @@ namespace ApiBackend.Models
         public DateTime UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
-        // 1:N → Tasks
         public ICollection<Tasks> Tasks { get; set; }
             = new List<Tasks>();
     }

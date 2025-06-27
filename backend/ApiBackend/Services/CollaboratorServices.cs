@@ -45,17 +45,17 @@ namespace ApiBackend.Services
 
         public async Task<CollaboratorDto> CreateAsync(CreateCollaboratorDto dto)
         {
-            // 1) valida usuário
+            
             var user = await _appDbContext.User
                 .FirstOrDefaultAsync(u => u.Id == dto.UserId && u.DeletedAt == null);
             if (user == null)
                 throw new InvalidOperationException("Usuário não encontrado.");
 
-            // 2) checa duplicidade
+            
             if (await _appDbContext.Collaborator.AnyAsync(c => c.UserId == dto.UserId))
                 throw new InvalidOperationException("Já existe colaborador para este usuário.");
 
-            // 3) cria e popula Name com o UserName
+            
             var collab = new Collaborator
             {
                 UserId = dto.UserId,

@@ -14,7 +14,7 @@ namespace ApiBackend.Models
         public DateTime EndDate { get; set; }  
 
         [Required, MaxLength(200)]
-        public string TimeZoneId { get; set; } = null!; // "America/Sao_Paulo"
+        public string TimeZoneId { get; set; } = null!; 
 
         [Required]
         public int TaskId { get; set; }

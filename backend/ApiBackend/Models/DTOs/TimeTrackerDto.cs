@@ -13,7 +13,7 @@
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        // duração em horas (double) ou um TimeSpan/string
+        
         public double DurationHours { get; set; }
     }
 }

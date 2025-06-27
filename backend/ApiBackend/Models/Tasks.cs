@@ -12,7 +12,7 @@ namespace ApiBackend.Models
 
         public string? Description { get; set; }
 
-        // FK para o Project
+  
         [Required]
         public int ProjectId { get; set; }
         public Project Project { get; set; } = null!;
@@ -21,7 +21,7 @@ namespace ApiBackend.Models
         public DateTime UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
-        // 1:N → TimeTrackers
+        
         public ICollection<TimeTracker> TimeTrackers { get; set; }
             = new List<TimeTracker>();
     }
