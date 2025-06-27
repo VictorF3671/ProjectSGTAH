@@ -27,7 +27,9 @@ Sistema para controle de tarefas com apontamento de horas.
 
 * JWT para autenticação de API.
 
-* Senhas armazenadas com hash BCrypt.# Tecnologias Utilizadas
+* Senhas armazenadas com hash BCrypt.
+
+# Tecnologias Utilizadas
 
 ## Backend
 - **.NET 9 (C#)**
